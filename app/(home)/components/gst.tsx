@@ -24,8 +24,8 @@ const benefits = [
 ];
 
 const gstImages = [
-  "/tax-preparation.avif",
   "/office1.webp",
+  "/locations/1000350314.jpg",
   "/office4.webp",
 ];
 

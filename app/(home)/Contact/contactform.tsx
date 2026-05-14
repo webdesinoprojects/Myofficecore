@@ -48,6 +48,9 @@ export default function ContactUs() {
     "Ecommerce Registration",
     "Transferring Address",
     "Need Help / Clarification",
+    "Virtual office address",
+    "Virtual office address for GST registration",
+    "Virtual office address for company registration",
   ];
 
   const handleChange = (

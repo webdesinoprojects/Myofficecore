@@ -71,7 +71,7 @@ export default function VirtualOfficeBenefits() {
 
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2.5rem] shadow-2xl">
               <Image
-                src="/desk-address.avif"
+                src="/locations/1000350305.jpg"
                 alt="Virtual Office"
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"

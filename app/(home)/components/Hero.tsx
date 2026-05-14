@@ -10,7 +10,7 @@ import { toast, Toaster } from "react-hot-toast";
 /* ── images ─────────────────────────────────────────────── */
 const heroImages = [
   {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=80",
+    src: "/1000350311.jpg",
     alt: "Corporate HQ",
     title: "Premium Address",
     desc: "Establish your brand in India's top business hubs.",
