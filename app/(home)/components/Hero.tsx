@@ -1,74 +1,34 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useInView, Variants } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Loader2 } from "lucide-react";
 import { toast, Toaster } from "react-hot-toast";
 
-/* ── images ─────────────────────────────────────────────── */
-const heroImages = [
-  {
-    src: "/1000350311.jpg",
-    alt: "Corporate HQ",
-    title: "Premium Address",
-    desc: "Establish your brand in India's top business hubs.",
-    className: "md:col-span-2 md:row-span-2",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80",
-    alt: "Modern Meeting Room",
-    title: "Meeting Spaces",
-    desc: "Fully equipped boardrooms for your big pitches.",
-    className: "md:col-span-1 md:row-span-1",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80",
-    alt: "Minimal Workspace",
-    title: "Flexible Desks",
-    desc: "Agile environments for modern teams.",
-    className: "md:col-span-1 md:row-span-2",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&q=80",
-    alt: "Lounge Area",
-    title: "Global Network",
-    desc: "Connect with our community across 50+ locations.",
-    className: "md:col-span-1 md:row-span-1",
-  },
-];
+const heroImage = {
+  src: "/12079.jpg",
+  alt: "Business professional working on a laptop",
+};
 
-/* ── stats ──────────────────────────────────────────────── */
 const stats = [
   { end: 12, suffix: "+", label: "Years Experience" },
   { end: 86, suffix: "+", label: "Spaces Available" },
   { end: 12, suffix: "k+", label: "Satisfied Clients" },
 ];
 
-/* ── animation helpers ──────────────────────────────────── */
+const motionEase: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 32 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, delay: i * 0.1, ease: [0.215, 0.61, 0.355, 1] as any },
+    transition: { duration: 0.8, delay: i * 0.1, ease: motionEase },
   }),
 };
 
-const imgReveal: Variants = {
-  hidden: { clipPath: "inset(100% 0 0 0)", scale: 1.1 },
-  visible: (i: number) => ({
-    clipPath: "inset(0% 0 0 0)",
-    scale: 1,
-    transition: {
-      clipPath: { duration: 1.2, delay: 0.4 + i * 0.1, ease: [0.19, 1, 0.22, 1] as any },
-      scale: { duration: 2, delay: 0.4 + i * 0.1, ease: [0.19, 1, 0.22, 1] as any },
-    },
-  }),
-};
-
-/* ── counter ────────────────────────────────────────────── */
 function Counter({
   end,
   suffix,
@@ -82,6 +42,7 @@ function Counter({
 
   useEffect(() => {
     if (!active) return;
+
     let frame: number;
     const duration = 2000;
     const start = performance.now();
@@ -90,7 +51,10 @@ function Counter({
       const t = Math.min((now - start) / duration, 1);
       const ease = 1 - Math.pow(1 - t, 4);
       setVal(Math.round(ease * end));
-      if (t < 1) frame = requestAnimationFrame(tick);
+
+      if (t < 1) {
+        frame = requestAnimationFrame(tick);
+      }
     };
 
     frame = requestAnimationFrame(tick);
@@ -105,45 +69,6 @@ function Counter({
   );
 }
 
-/* ── bento card ─────────────────────────────────────────── */
-function BentoCard({ img, idx, isInView }: { img: typeof heroImages[0], idx: number, isInView: boolean }) {
-  return (
-    <motion.div
-      variants={imgReveal}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      custom={idx}
-      className={`group relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-surface)] ${img.className}`}
-      style={{
-        boxShadow: "0 10px 30px -10px var(--card-shadow)",
-      }}
-    >
-      <div className="relative h-full w-full overflow-hidden">
-        <Image
-          src={img.src}
-          alt={img.alt}
-          fill
-          sizes="(min-width: 1024px) 33vw, 100vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-1"
-        />
-        {/* glass overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-        
-        {/* content */}
-        <div className="absolute bottom-0 left-0 w-full p-6 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/80">
-            {img.title}
-          </p>
-          <p className="font-clean mt-2 text-sm text-white leading-snug">
-            {img.desc}
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ── main component ─────────────────────────────────────── */
 export default function Hero() {
   const [loading, setLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
@@ -160,7 +85,6 @@ export default function Hero() {
   const statsRef = useRef<HTMLDivElement>(null);
   const statsVisible = useInView(statsRef, { once: true, amount: 0.5 });
 
-  /* ── form submit ── */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -174,11 +98,13 @@ export default function Hero() {
 
       if (!res.ok) {
         let msg = "Failed";
+
         try {
           const data = await res.json();
           msg = data?.error || data?.message || msg;
           toast.error(msg);
         } catch {}
+
         throw new Error(msg);
       }
 
@@ -194,31 +120,39 @@ export default function Hero() {
   };
 
   return (
-    <main
-      ref={ref}
-      className="relative overflow-hidden"
-    >
+    <main ref={ref} className="relative overflow-hidden">
       <Toaster position="top-right" />
 
-      {/* Hero Content */}
-      <div className="section-shell relative z-10 pb-6 pt-4 md:pb-10 md:pt-6 lg:pt-8">
-        {/* two-column layout */}
-        <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          
-          {/* ── LEFT: Text ── */}
-          <div className="flex flex-col justify-center py-6 md:py-10">
+      <section className="relative isolate min-h-screen overflow-visible bg-slate-950">
+        <div className="absolute inset-x-0 -top-40 bottom-0 z-0">
+          <Image
+            src={heroImage.src}
+            alt={heroImage.alt}
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.84)_38%,rgba(255,255,255,0.42)_68%,rgba(255,255,255,0.08)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(15,23,42,0.22)_0%,rgba(15,23,42,0)_46%)]" />
+        </div>
+
+        <div className="section-shell relative z-10 flex min-h-screen items-center py-24 pt-40 md:pt-44">
+          <div className="max-w-4xl">
             <motion.div
               variants={fadeUp}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               custom={0}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-surface)] px-3 py-1 shadow-sm"
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-1 shadow-sm backdrop-blur-md"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--fg-muted)]">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-700">
                 Live across 50+ Cities
               </span>
             </motion.div>
@@ -228,15 +162,11 @@ export default function Hero() {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               custom={1}
-              className="font-display text-[clamp(2.8rem,6.5vw,5rem)] font-bold uppercase leading-[0.9] tracking-tighter"
-              style={{ color: "var(--fg)" }}
+              className="font-display text-[clamp(3rem,8vw,6.5rem)] font-bold uppercase leading-[0.9] text-slate-950"
             >
-              Modern{" "}
-              <br />
-              Business{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--fg)] to-[var(--fg-subtle)]">
-                Presence.
-              </span>
+              Modern <br />
+              Business <br />
+              Presence.
             </motion.h1>
 
             <motion.p
@@ -244,11 +174,11 @@ export default function Hero() {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               custom={2}
-              className="font-clean mt-8 max-w-lg text-[16px] leading-relaxed md:text-lg opacity-80"
-              style={{ color: "var(--fg)" }}
+              className="font-clean mt-8 max-w-2xl text-base font-semibold leading-relaxed text-slate-900 md:text-lg"
             >
-              Elevate your business with premium virtual office solutions. 
-              Get a professional address, GST registration, and more—all without the overhead.
+              Elevate your business with premium virtual office solutions. Get a
+              professional address, GST registration, and more-all without the
+              overhead.
             </motion.p>
 
             <motion.div
@@ -261,115 +191,53 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={() => setOpenForm(true)}
-                className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[var(--fg)] px-8 py-4 font-mono text-[13px] font-bold uppercase tracking-widest text-[var(--bg)] transition-all hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative inline-flex min-h-12 items-center justify-center gap-3 overflow-hidden rounded-lg bg-slate-950 px-8 py-4 font-mono text-[13px] font-bold uppercase tracking-widest text-white shadow-xl shadow-slate-950/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Send Enquiry <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Send Enquiry
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
               </button>
 
               <Link
                 href="#virtual-office"
-                className="inline-flex items-center justify-center gap-3 rounded-full border border-[var(--border)] bg-[var(--bg-surface)] px-8 py-4 font-mono text-[13px] font-bold uppercase tracking-widest text-[var(--fg)] transition-all hover:bg-[var(--bg-elevated)]"
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-lg border border-black/10 bg-white/70 px-8 py-4 font-mono text-[13px] font-bold uppercase tracking-widest text-slate-950 shadow-sm backdrop-blur-md transition-all hover:bg-white"
               >
                 Explore Plans <ArrowUpRight className="h-4 w-4" />
               </Link>
             </motion.div>
-          </div>
 
-          {/* ── RIGHT: Hero Grid (1 large + 2 small) ── */}
-          <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              {/* large image — spans 2 cols */}
-              <motion.div
-                variants={imgReveal}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                custom={0}
-                className="col-span-2 overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-surface)] shadow-2xl shadow-[var(--card-shadow)]"
-              >
-                <div className="relative aspect-[16/9] overflow-hidden group">
-                  <Image
-                    src={heroImages[0].src}
-                    alt={heroImages[0].alt}
-                    fill
-                    sizes="(min-width: 1024px) 55vw, 100vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-              </motion.div>
-
-              {/* two smaller images */}
-              {heroImages.slice(1, 3).map((img, idx) => (
-                <motion.div
-                  key={img.alt}
-                  variants={imgReveal}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  custom={idx + 1}
-                  className="overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-surface)] shadow-xl shadow-[var(--card-shadow)]"
+            <motion.div
+              ref={statsRef}
+              variants={fadeUp}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              custom={4}
+              className="mt-12 grid max-w-3xl grid-cols-3 overflow-hidden rounded-xl border border-black/10 bg-white/60 shadow-sm backdrop-blur-md"
+            >
+              {stats.map((s, i) => (
+                <div
+                  key={s.label}
+                  className="flex min-h-24 flex-col items-center justify-center px-3 py-5 text-center"
+                  style={{
+                    borderRight:
+                      i < stats.length - 1 ? "1px solid rgba(15,23,42,0.12)" : "none",
+                  }}
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden group">
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      sizes="(min-width: 1024px) 27vw, 50vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                </motion.div>
+                  <span className="font-display text-2xl font-bold text-slate-950 md:text-4xl">
+                    <Counter end={s.end} suffix={s.suffix} active={statsVisible} />
+                  </span>
+                  <span className="font-mono mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-700 md:text-xs">
+                    {s.label}
+                  </span>
+                </div>
               ))}
-            </div>
-            
-            {/* decorative gradient blob */}
-            <div className="absolute -z-10 -right-20 -top-20 h-[400px] w-[400px] bg-[var(--brand)] opacity-[0.05] blur-[120px] rounded-full" />
+            </motion.div>
           </div>
         </div>
+      </section>
 
-        {/* ── Stats bar ── */}
-        <motion.div
-          ref={statsRef}
-          variants={fadeUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          custom={5}
-          className="mt-12 grid grid-cols-3 overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg-surface)]/40 backdrop-blur-md"
-        >
-          {stats.map((s, i) => (
-            <div
-              key={s.label}
-              className="flex flex-col items-center justify-center px-4 py-6 md:py-8"
-              style={{
-                borderRight:
-                  i < stats.length - 1
-                    ? "1px solid var(--border)"
-                    : "none",
-              }}
-            >
-              <span
-                className="font-display text-2xl font-bold md:text-4xl"
-                style={{ color: "var(--fg)" }}
-              >
-                <Counter
-                  end={s.end}
-                  suffix={s.suffix}
-                  active={statsVisible}
-                />
-              </span>
-              <span
-                className="font-mono mt-1.5 text-[10px] font-medium uppercase tracking-[0.15em] md:text-xs"
-                style={{ color: "var(--fg-muted)" }}
-              >
-                {s.label}
-              </span>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* ──────── Enquiry Form Modal ──────── */}
       <AnimatePresence>
         {openForm && (
           <motion.div
@@ -429,9 +297,7 @@ export default function Hero() {
                   rows={2}
                   placeholder="Message"
                   value={form.message}
-                  onChange={(e) =>
-                    setForm({ ...form, message: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
                   className="w-full resize-none rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2"
                   style={{
                     background: "var(--bg-elevated)",

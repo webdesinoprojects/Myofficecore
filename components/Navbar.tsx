@@ -36,6 +36,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   const closeMobileMenu = () => {
     setMobileOpen(false);
@@ -48,7 +49,11 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full px-3 py-3">
+    <nav
+      className={`top-0 z-50 w-full px-3 py-3 ${
+        isHomePage ? "fixed" : "sticky"
+      }`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between rounded-[1.25rem] border border-[var(--border)] bg-[var(--bg-surface)]/80 px-3 py-2 shadow-[0_18px_70px_var(--card-shadow)] backdrop-blur-2xl md:px-5">
         <Link href="/" className="flex items-center gap-3 rounded-full">
           <Image
