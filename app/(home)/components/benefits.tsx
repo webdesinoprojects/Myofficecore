@@ -100,7 +100,7 @@ export default function VirtualOfficeBenefits() {
                   }`}>
                     <CheckCircle2 className="h-4 w-4" />
                   </div>
-                  <p className={`font-clean text-[15px] leading-relaxed opacity-70 ${!isDark ? "text-slate-700" : "text-white/80"}`}>
+                  <p className={`font-clean text-[15px] leading-relaxed font-medium ${!isDark ? "text-slate-900" : "text-white"}`}>
                     {item.text}
                   </p>
                 </div>

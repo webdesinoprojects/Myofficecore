@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useInView, Variants } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Loader2 } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Loader2, MessageCircle } from "lucide-react";
 import { toast, Toaster } from "react-hot-toast";
 
 const heroImage = {
-  src: "/12079.jpg",
+  src: "/1000350308.jpg",
   alt: "Business professional working on a laptop",
 };
 
@@ -103,7 +103,7 @@ export default function Hero() {
           const data = await res.json();
           msg = data?.error || data?.message || msg;
           toast.error(msg);
-        } catch {}
+        } catch { }
 
         throw new Error(msg);
       }
@@ -132,7 +132,7 @@ export default function Hero() {
             priority
             fetchPriority="high"
             sizes="100vw"
-            className="object-cover object-center"
+            className="object-cover object-right -scale-x-100"
           />
 
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.84)_38%,rgba(255,255,255,0.42)_68%,rgba(255,255,255,0.08)_100%)]" />
@@ -162,7 +162,7 @@ export default function Hero() {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               custom={1}
-              className="font-display text-[clamp(3rem,8vw,6.5rem)] font-bold uppercase leading-[0.9] text-slate-950"
+              className="font-display text-[clamp(2.5rem,6vw,5.5rem)] font-bold uppercase leading-[0.9] text-slate-950"
             >
               Modern <br />
               Business <br />
@@ -206,6 +206,16 @@ export default function Hero() {
               >
                 Explore Plans <ArrowUpRight className="h-4 w-4" />
               </Link>
+
+              <button
+                type="button"
+                onClick={() => {
+                  window.open("https://wa.me/+919990720722?text=Hello,%20I'm%20interested%20in%20your%20services.", "_blank");
+                }}
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-6 py-4 font-mono text-[13px] font-bold uppercase tracking-widest text-emerald-600 shadow-sm backdrop-blur-md transition-all hover:bg-emerald-500 hover:text-white"
+              >
+                <MessageCircle className="h-4 w-4" /> WhatsApp
+              </button>
             </motion.div>
 
             <motion.div

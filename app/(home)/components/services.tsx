@@ -125,41 +125,41 @@ export default function ServicesSection() {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           <PricingCard
-            title="Delhi & Noida"
-            subtitle="Virtual Office Addresses"
-            price="899"
+            title="Virtual Office"
+            subtitle="Pan India"
+            price="999"
             isDarkTheme={isDark}
             index={2}
             isInView={isInView}
-            onEnquiry={() => openEnquiry("Enquiry: Delhi & Noida Virtual Office")}
+            onEnquiry={() => openEnquiry("Enquiry: Virtual Office Pan India")}
           />
           <PricingCard
-            title="Registered"
-            subtitle="Company Addresses"
-            price="900"
+            title="Coworking"
+            subtitle="Space"
+            price="5500"
             isDarkTheme={isDark}
             index={3}
             isInView={isInView}
-            onEnquiry={() => openEnquiry("Enquiry: Registered Address")}
+            onEnquiry={() => openEnquiry("Enquiry: Coworking Space")}
           />
           <PricingCard
-            title="Mumbai Hub"
-            subtitle="Premium Virtual Offices"
-            price="999"
+            title="Private Office"
+            subtitle="Dedicated Space"
+            price="15000"
             isDarkTheme={isDark}
             index={4}
             isInView={isInView}
             highlight
-            onEnquiry={() => openEnquiry("Enquiry: Mumbai Virtual Office")}
+            onEnquiry={() => openEnquiry("Enquiry: Private Office")}
           />
           <PricingCard
-            title="Bangalore"
-            subtitle="Tech Corridor Access"
+            title="GST Reg."
+            subtitle="Registration Services"
             price="999"
             isDarkTheme={isDark}
             index={5}
             isInView={isInView}
-            onEnquiry={() => openEnquiry("Enquiry: Bangalore Virtual Office")}
+            onEnquiry={() => openEnquiry("Enquiry: GST Registration")}
           />
         </div>
       </div>

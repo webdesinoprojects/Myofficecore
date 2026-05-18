@@ -14,7 +14,7 @@ const wideImages = [
 
 const features = [
   {
-    title: "Virtual Offices",
+    title: "Virtual office address GST Reg.",
     desc: "Premium presence in Delhi, Noida and Gurugram.",
     price: 899,
     icon: Building2,
@@ -22,21 +22,21 @@ const features = [
     hasMiniBento: true,
   },
   {
-    title: "Registered Addresses",
+    title: "Virtual office address Company Reg.",
     desc: "Official business registration.",
     price: 900,
     icon: MapPin,
     className: "md:col-span-1",
   },
   {
-    title: "Mumbai Hub",
+    title: "Virtual office address Mailing address",
     desc: "India's financial capital.",
     price: 999,
     icon: BadgeIndianRupee,
     className: "md:col-span-1",
   },
   {
-    title: "Bangalore Network",
+    title: "Virtual office Amazon / Flipkart APOB",
     desc: "Connect with the tech ecosystem.",
     price: 999,
     icon: Building2,

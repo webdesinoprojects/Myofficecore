@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Helpdesk from "../About-Us/helpdesk"
+import { Process } from "../company-registration/process"
 import { GST } from "../components/gst"
 import About from "./about"
 import FAQSection from "./faq"
@@ -18,6 +19,7 @@ const page = () => {
     <GST/>
     <Genesis/>
     <About/>
+    <Process/>
     <FAQSection/>
     <Helpdesk/>
     </>

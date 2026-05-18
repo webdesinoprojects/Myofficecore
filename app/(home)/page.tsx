@@ -18,7 +18,7 @@ import GetStarted from './components/GetStarted'
 import VirtualOfficeBenefits from './components/benefits'
 import AddOnServices from './components/Addon'
 import { OurBenefits } from './components/OurBenefits'
-import { Process } from './company-registration/process'
+
 import { DocumentsRequired } from './company-registration/documents'
 import Helpdesk from './About-Us/helpdesk'
 import ContactUs from './Contact/contactform'
@@ -34,7 +34,7 @@ const page = () => {
         <VirtualOfficeBenefits/>
         <GetStarted/>
         <ProductsPage limit={8} />
-        <Process/>
+
         <DocumentsRequired/>
         <Helpdesk/>
         <Objective />

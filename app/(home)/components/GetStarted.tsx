@@ -9,7 +9,7 @@ import { useTheme } from "@/lib/ThemeContext";
 const points = [
   "Instant professional business address",
   "Networking opportunities and community events",
-  "Special discounts on services from global partners",
+  "Special discounts on services from GST and Company legal help",
   "Meeting and conference rooms available for bookings",
   "Professional receptionist to welcome visitors",
   "Round the clock customer support",

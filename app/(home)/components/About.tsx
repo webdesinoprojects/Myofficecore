@@ -9,7 +9,7 @@ import Link from "next/link";
 /* ── images ─────────────────────────────────────────────── */
 const aboutImages = [
   {
-    src: "/office4.webp",
+    src: "/1000350311.jpg",
     alt: "Executive Boardroom",
     title: "Strategic Spaces",
     className: "md:col-span-2 md:row-span-2",
@@ -55,13 +55,13 @@ export default function AboutPage() {
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
   return (
-    <main 
+    <main
       ref={containerRef}
-      className="relative overflow-hidden py-24 md:py-32" 
+      className="relative overflow-hidden py-24 md:py-32"
       id="about"
     >
       <section className="section-shell relative z-10 grid grid-cols-1 items-center gap-16 lg:grid-cols-[1fr_0.9fr]">
-        
+
         {/* ── LEFT: Aceternity Style Bento Grid ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 h-[500px] md:h-[600px]">
           {aboutImages.map((img, idx) => (
@@ -82,7 +82,7 @@ export default function AboutPage() {
               />
               {/* overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              
+
               {/* label */}
               <div className="absolute bottom-6 left-6 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/80">
@@ -112,7 +112,7 @@ export default function AboutPage() {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             custom={1}
-            className="font-display text-[clamp(2.5rem,5vw,4.5rem)] font-bold uppercase leading-[0.95] tracking-tight"
+            className="font-display text-[clamp(2rem,4vw,3.5rem)] font-bold uppercase leading-[0.95] tracking-tight"
             style={{ color: "var(--fg)" }}
           >
             Empowering <br />
@@ -130,10 +130,10 @@ export default function AboutPage() {
             className="mt-10 space-y-6"
           >
             <p className="font-clean text-[16px] leading-relaxed text-[var(--fg)] opacity-80 md:text-lg">
-              We are committed to making professional office solutions accessible to businesses of every size. 
+              We are committed to making professional office solutions accessible to businesses of every size.
               establish a credible presence without unnecessary complexity or cost.
             </p>
-            
+
             <p className="font-clean text-[16px] leading-relaxed text-[var(--fg-muted)]">
               With a strong network of prime locations across India, we deliver reliable, law compliant office solutions backed by transparent pricing and efficient documentation.
             </p>
@@ -146,7 +146,7 @@ export default function AboutPage() {
             custom={3}
             className="mt-12"
           >
-            <Link 
+            <Link
               href="/About-Us"
               className="group inline-flex items-center gap-3 font-mono text-[13px] font-bold uppercase tracking-widest text-[var(--fg)] hover:opacity-70 transition-opacity"
             >
@@ -156,7 +156,7 @@ export default function AboutPage() {
               </div>
             </Link>
           </motion.div>
-          
+
           {/* decorative blob */}
           <div className="absolute -z-10 -left-24 -bottom-24 h-[350px] w-[350px] bg-[var(--brand)] opacity-[0.04] blur-[100px] rounded-full" />
         </div>

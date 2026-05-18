@@ -14,7 +14,7 @@ const benefits = [
   { name: "GST Registration on Same Day", img: "/gst.svg" },
   { name: "Best After Sales Service", img: "/service.svg" },
   { name: "Premium Meeting Rooms", img: "/meeting.svg" },
-  { name: "Professional Addresses", img: "/professional.svg" },
+  { name: "Professional Addresses. Quick documentation.", img: "/professional.svg" },
 ];
 
 const fadeUp: Variants = {
