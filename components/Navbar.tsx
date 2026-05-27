@@ -29,6 +29,7 @@ const navItems = [
       { name: "Business Services", href: "/business-services" },
     ],
   },
+  { name: "Locations", href: "/locations" },
   { name: "Contact", href: "/Contact" },
 ];
 
@@ -50,11 +51,15 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`top-0 z-50 w-full px-3 py-3 ${
-        isHomePage ? "fixed" : "sticky"
+      className={`top-0 z-50 w-full ${
+        isHomePage ? "fixed px-3 py-3" : "sticky px-0 py-0 border-b border-[var(--border)] bg-[var(--bg-surface)]/80 backdrop-blur-2xl shadow-sm"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-[1.25rem] border border-[var(--border)] bg-[var(--bg-surface)]/80 px-3 py-2 shadow-[0_18px_70px_var(--card-shadow)] backdrop-blur-2xl md:px-5">
+      <div className={`mx-auto flex items-center justify-between px-4 py-3 md:px-6 transition-all duration-300 ${
+        isHomePage 
+          ? "max-w-7xl rounded-[1.25rem] border border-[var(--border)] bg-[var(--bg-surface)]/80 shadow-[0_18px_70px_var(--card-shadow)] backdrop-blur-2xl" 
+          : "max-w-7xl w-full"
+      }`}>
         <Link href="/" className="flex items-center gap-3 rounded-full">
           <Image
             src="/logo2.jpeg"
@@ -147,7 +152,11 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -14, scale: 0.98 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mt-2 max-w-7xl rounded-[1.25rem] border border-[var(--border)] bg-[var(--bg-surface)]/95 p-3 shadow-2xl backdrop-blur-xl lg:hidden"
+            className={`mx-auto p-3 shadow-2xl backdrop-blur-xl lg:hidden transition-all duration-300 ${
+              isHomePage 
+                ? "mt-2 max-w-7xl rounded-[1.25rem] border border-[var(--border)] bg-[var(--bg-surface)]/95" 
+                : "w-full border-b border-[var(--border)] bg-[var(--bg-surface)]/95"
+            }`}
           >
             <div className="flex flex-col gap-1">
               {navItems.map((item) =>
